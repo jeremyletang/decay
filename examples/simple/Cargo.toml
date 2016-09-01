@@ -1,0 +1,10 @@
+[package]
+name = "decay-simple"
+version = "0.1.0"
+authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
+
+[dependencies]
+decay = { version = "*", path = "../../decay" }
+serde = "^0.8"
+serde_macros  = "^0.8"
+decay_macros = { version = "*", path = "../../decay_macros" }

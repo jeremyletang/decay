@@ -1,0 +1,11 @@
+[package]
+name = "decay"
+version = "0.1.0"
+authors = ["jeremy <letang.jeremy@gmail.com>"]
+
+[dependencies]
+log = "0.3.6"
+mime = "0.2.1"
+serde = "^0.8"
+serde_macros = "^0.8"
+serde_json = "^0.8"

@@ -1,0 +1,16 @@
+[package]
+name = "decay_codegen"
+version = "0.1.0"
+authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
+license = "MIT/Apache-2.0"
+
+[build-dependencies]
+#quasi_codegen = { version = "^0.15.0", optional = true }
+#clippy = { version = "^0.*", optional = true }
+
+[dependencies]
+#git2 = "0.3"
+#quasi_macros = { version = "^0.15.0", optional = false }
+#rpc = { version = "0.1.0", path = "../rpc" }
+#quasi = { version = "^0.15.0", default-features = false }
+#aster = { version = "^0.21.1", default-features = false }
