@@ -5,20 +5,27 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use codec;
-use mime::{Mime, TopLevel, SubLevel};
-use serde;
-use serde_json;
+extern crate decay;
+extern crate serde;
+extern crate serde_json;
+
+use decay::codec;
+use decay::mime::{Mime, TopLevel, SubLevel};
 use std::error::Error;
+
+// alias to the codec type, easy to use with compiler plugin
+pub type Codec = JsonCodec;
 
 #[derive(Clone)]
 pub struct JsonCodec {}
 
 impl codec::Codec for JsonCodec {
-    type Serializer = serde_json::Serializer<Vec<u8>>;
-
     fn method(&self, buf: &[u8]) -> Result<String, String> {
-        Ok("yolo".into())
+        let message: Result<codec::Message, _> = serde_json::from_slice(buf);
+        match message {
+            Ok(m) => Ok(m.method),
+            Err(e) => Err(e.description().to_string()),
+        }
     }
 
     fn mime(&self) -> Mime {

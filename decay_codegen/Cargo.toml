@@ -10,7 +10,9 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 #git2 = "0.3"
-#quasi_macros = { version = "^0.15.0", optional = false }
+aster = "0.26.1"
+quasi = "^0.19.0"
+quasi_macros = { version = "^0.19.0", optional = false }
 #rpc = { version = "0.1.0", path = "../rpc" }
 #quasi = { version = "^0.15.0", default-features = false }
 #aster = { version = "^0.21.1", default-features = false }
