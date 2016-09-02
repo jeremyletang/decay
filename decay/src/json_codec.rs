@@ -15,6 +15,8 @@ use std::error::Error;
 pub struct JsonCodec {}
 
 impl codec::Codec for JsonCodec {
+    type Serializer = serde_json::Serializer<Vec<u8>>;
+
     fn method(&self, buf: &[u8]) -> Result<String, String> {
         Ok("yolo".into())
     }
@@ -24,7 +26,7 @@ impl codec::Codec for JsonCodec {
     }
 
     fn decode<T>(&self, buf: &[u8]) -> Result<T, String>
-        where T: serde::Deserialize + serde::Serialize
+        where T: serde::Deserialize
     {
         match serde_json::from_slice(buf) {
             Ok(t) => Ok(t),
@@ -33,7 +35,7 @@ impl codec::Codec for JsonCodec {
     }
 
     fn encode<T>(&self, val: &T) -> Result<Vec<u8>, String>
-        where T: serde::Serialize + serde::Serializer
+        where T: serde::Serialize
     {
         match serde_json::to_vec(val) {
             Ok(s) => Ok(s),

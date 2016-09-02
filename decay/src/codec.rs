@@ -18,12 +18,15 @@ pub struct Message {
 }
 
 pub trait Codec: Sized + Clone + Send + Sync + 'static {
+    type Serializer: serde::Serializer;
+
     fn method(&self, buf: &[u8]) -> Result<String, String>;
     fn mime(&self) -> Mime;
     fn decode<T>(&self, buf: &[u8]) -> Result<T, String>
-        where T: serde::Deserialize + serde::Serialize;
+        where T: serde::Deserialize;
     fn encode<T>(&self, val: &T) -> Result<Vec<u8>, String>
-        where T: serde::Serialize + serde::Serializer;
+        where T: serde::Serialize;
+     
 }
 
 pub trait RawCodec {
@@ -40,3 +43,4 @@ impl<C> RawCodec for C where C: Codec {
         self.mime()
     }
 }
+

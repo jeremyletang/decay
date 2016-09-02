@@ -46,7 +46,7 @@ impl Service {
                                                                handler: H)
                                                                -> &mut Service
         where H: Handler<Req, Res>,
-              Req: serde::Deserialize + serde::Serialize,
+              Req: serde::Deserialize + serde::Serialize + Default,
               Res: serde::Deserialize + serde::Serialize
     {
         let box_handler: Box<Handler<Req, Res> + 'static> = Box::new(handler);

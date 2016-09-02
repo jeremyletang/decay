@@ -10,10 +10,13 @@
 #![allow(unused_variables)]
 
 extern crate decay;
+extern crate serde;
 
+use serde::{Serializer, Deserializer};
+use decay::codec::Codec;
 use decay::context::Context;
 use decay::handler::{Handler, HandlerName, HandlerCodecs};
-use decay::mime::{Mime, TopLevel, SubLevel};
+use decay::mime::Mime;
 use decay::fn_handler_wrapper::FnHandlerWrapper;
 use decay::json_codec::JsonCodec;
 use decay::service::Service;
@@ -47,10 +50,29 @@ impl HandlerName for PersonHandler {
     }
 }
 
-impl HandlerCodecs for PersonHandler {
+impl HandlerCodecs<PersonRequest, PersonResponse> for PersonHandler {
     fn codecs(&self) -> Vec<Mime> {
-        vec![Mime(TopLevel::Application, SubLevel::Json, vec![])]
+        vec![JsonCodec{}.mime()]
     }
+
+    fn encode(&self, res: PersonResponse, mime: &Mime) -> Result<Vec<u8>, String> {
+        let json_codec = JsonCodec {};
+        if *mime == json_codec.mime() {
+            json_codec.encode(&res)
+        } else {
+            Err("".into())
+        }
+    }
+    
+    fn decode(&self, buf: &[u8], mime: &Mime) -> Result<PersonRequest, String> {
+        let json_codec = JsonCodec {};
+        if *mime == json_codec.mime() {
+            json_codec.decode(buf)
+        } else {
+            Err("".into())
+        }
+    }
+
 }
 
 #[derive(Default, Serialize, Deserialize)]
