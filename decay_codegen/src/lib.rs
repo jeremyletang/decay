@@ -11,6 +11,8 @@
 
 extern crate rustc_plugin;
 
+mod utils;
+
 pub fn register(reg: &mut rustc_plugin::Registry) {
  
 }

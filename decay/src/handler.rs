@@ -23,8 +23,8 @@ pub trait HandlerName {
 }
 
 pub trait HandlerCodecs<Req, Res>
-    where Req: serde::Deserialize + serde::Serialize + Default,
-          Res: serde::Deserialize + serde::Serialize{
+    where Req: serde::Deserialize + serde::Serialize + Default, 
+          Res: serde::Deserialize + serde::Serialize {
     fn codecs(&self) -> Vec<Mime>;
     fn encode(&self, res: Res, mime: &Mime) -> Result<Vec<u8>, String>;
     fn decode(&self, buf: &[u8], mime: &Mime) -> Result<Req, String>;

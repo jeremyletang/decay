@@ -4,7 +4,7 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
-
+/*
 use context::Context;
 use handler::{Handler, HandlerName, HandlerCodecs};
 use mime::Mime;
@@ -73,3 +73,5 @@ impl<Req, Res> HandlerCodecs<Req, Res> for FnHandlerWrapper<Req, Res>
         Ok(Default::default())
     }
 }
+
+*/

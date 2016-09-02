@@ -5,7 +5,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![feature(plugin, custom_derive)]
+#![feature(plugin, custom_derive, custom_attribute)]
 #![plugin(serde_macros, decay_macros)]
 #![allow(unused_variables)]
 
@@ -17,7 +17,7 @@ use decay::codec::Codec;
 use decay::context::Context;
 use decay::handler::{Handler, HandlerName, HandlerCodecs};
 use decay::mime::Mime;
-use decay::fn_handler_wrapper::FnHandlerWrapper;
+//use decay::fn_handler_wrapper::FnHandlerWrapper;
 use decay::json_codec::JsonCodec;
 use decay::service::Service;
 
@@ -26,12 +26,15 @@ pub struct PersonRequest {
     pub yolo: String,
     pub thug: i32,
 }
+
 #[derive(Default, Serialize, Deserialize, Debug)]
 pub struct PersonResponse {
     pub ok: bool,
     pub error: String,
 }
 
+#[derive(HandlerName)]
+#[handler_codecs(json_codec)]
 pub struct PersonHandler;
 
 impl Handler<PersonRequest, PersonResponse> for PersonHandler {
@@ -50,12 +53,15 @@ impl HandlerName for PersonHandler {
     }
 }
 
-impl HandlerCodecs<PersonRequest, PersonResponse> for PersonHandler {
+impl<Req, Res> HandlerCodecs<Req, Res> for PersonHandler
+    where Req: serde::Deserialize + serde::Serialize + Default,
+          Res: serde::Deserialize + serde::Serialize
+{
     fn codecs(&self) -> Vec<Mime> {
         vec![JsonCodec{}.mime()]
     }
 
-    fn encode(&self, res: PersonResponse, mime: &Mime) -> Result<Vec<u8>, String> {
+    fn encode(&self, res: Res, mime: &Mime) -> Result<Vec<u8>, String> {
         let json_codec = JsonCodec {};
         if *mime == json_codec.mime() {
             json_codec.encode(&res)
@@ -64,7 +70,7 @@ impl HandlerCodecs<PersonRequest, PersonResponse> for PersonHandler {
         }
     }
     
-    fn decode(&self, buf: &[u8], mime: &Mime) -> Result<PersonRequest, String> {
+    fn decode(&self, buf: &[u8], mime: &Mime) -> Result<Req, String> {
         let json_codec = JsonCodec {};
         if *mime == json_codec.mime() {
             json_codec.decode(buf)
@@ -87,7 +93,7 @@ fn user(ctx: &Context, _: UserRequest) -> UserResponse {
 fn main() {
     let mut service = Service::new("yolo", "http://127.0.0.1:1492");
     service.use_codec(JsonCodec {})
-        .use_handler(FnHandlerWrapper { f: user, ..Default::default() })
+  //      .use_handler(FnHandlerWrapper { f: user, ..Default::default() })
         .use_handler(PersonHandler {});
     println!("Hello, world!");
 }
