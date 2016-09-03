@@ -16,7 +16,7 @@ use std::error::Error;
 // alias to the codec type, easy to use with compiler plugin
 pub type Codec = JsonCodec;
 
-#[derive(Clone)]
+#[derive(Default, Clone)]
 pub struct JsonCodec {}
 
 impl codec::Codec for JsonCodec {

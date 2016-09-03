@@ -13,11 +13,9 @@ extern crate decay;
 extern crate decay_json;
 extern crate serde;
 
-use decay::codec::Codec;
 use decay::context::Context;
-use decay::handler::{Handler, HandlerName, HandlerCodecs};
+use decay::handler::Handler;
 use decay::mime::Mime;
-//use decay::fn_handler_wrapper::FnHandlerWrapper;
 use decay::service::Service;
 
 #[derive(Default, Serialize, Deserialize, Debug)]

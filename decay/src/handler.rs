@@ -5,11 +5,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use codec::{RawCodec, Codec};
 use context::Context;
 use mime::Mime;
 use serde;
-use serde_json;
 
 pub trait Handler<Req, Res>: HandlerName + HandlerCodecs<Req, Res>
     where Req: serde::Deserialize + serde::Serialize + Default,

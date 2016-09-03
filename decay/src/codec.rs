@@ -17,7 +17,7 @@ pub struct Message {
     pub data: Vec<u8>,
 }
 
-pub trait Codec: Sized + Clone + Send + Sync + 'static {
+pub trait Codec: Default + Sized + Clone + Send + Sync + 'static {
     fn method(&self, buf: &[u8]) -> Result<String, String>;
     fn mime(&self) -> Mime;
     fn decode<T>(&self, buf: &[u8]) -> Result<T, String>
