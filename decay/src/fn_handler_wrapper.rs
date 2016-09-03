@@ -4,7 +4,7 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
-
+/*
 use context::Context;
 use handler::{Handler, HandlerName, HandlerCodecs};
 use mime::Mime;
@@ -39,7 +39,7 @@ impl<Req, Res> Default for FnHandlerWrapper<Req, Res>
 
 
 impl<Req, Res> Handler<Req, Res> for FnHandlerWrapper<Req, Res>
-    where Req: serde::Deserialize + serde::Serialize,
+    where Req: serde::Deserialize + serde::Serialize + Default,
           Res: serde::Deserialize + serde::Serialize
 {
     fn handle(&self, ctx: &Context, req: Req) -> Res {
@@ -57,11 +57,21 @@ impl<Req, Res> HandlerName for FnHandlerWrapper<Req, Res>
     }
 }
 
-impl<Req, Res> HandlerCodecs for FnHandlerWrapper<Req, Res>
-    where Req: serde::Deserialize + serde::Serialize,
+impl<Req, Res> HandlerCodecs<Req, Res> for FnHandlerWrapper<Req, Res>
+    where Req: serde::Deserialize + serde::Serialize + Default,
           Res: serde::Deserialize + serde::Serialize
 {
     fn codecs(&self) -> Vec<Mime> {
         self.codecs.clone()
     }
+
+    fn encode(&self, res: Res, mime: &Mime) -> Result<Vec<u8>, String> {
+        Ok(vec![])
+    }
+
+    fn decode(&self, buf: &[u8], mime: &Mime) -> Result<Req, String> {
+        Ok(Default::default())
+    }
 }
+
+*/

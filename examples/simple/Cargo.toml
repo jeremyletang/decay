@@ -5,6 +5,7 @@ authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
 
 [dependencies]
 decay = { version = "*", path = "../../decay" }
+decay_macros = { version = "*", path = "../../decay_macros" }
+decay_json = { version = "*", path = "../../codecs/json" }
 serde = "^0.8"
 serde_macros  = "^0.8"
-decay_macros = { version = "*", path = "../../decay_macros" }
