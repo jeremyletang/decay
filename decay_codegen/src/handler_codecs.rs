@@ -52,7 +52,6 @@ pub fn expand_handler_codecs(ecx: &mut ExtCtxt,
         params.push(ecx.typaram(sp, str_to_ident("__REQ"), P::new(), None));
         params.push(ecx.typaram(sp, str_to_ident("__RES"), P::new(), None));
         generics.ty_params = params.into();
-        let codecs_default = make_codecs_default_path(codecs).into_iter();
 
         let impl_item =
             quote_item!(ecx,

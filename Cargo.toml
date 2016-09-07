@@ -1,0 +1,8 @@
+[workspace]
+members = [
+  "decay",
+  "decay_codegen",
+  "decay_macros",
+  "codecs/json",
+  "examples/simple"
+]
