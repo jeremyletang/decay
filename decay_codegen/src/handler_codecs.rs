@@ -53,24 +53,24 @@ pub fn expand_handler_codecs(ecx: &mut ExtCtxt,
         params.push(ecx.typaram(sp, str_to_ident("__RES"), P::new(), None));
         generics.ty_params = params.into();
 
-        let impl_item =
-            quote_item!(ecx,
-                        impl$generics ::decay::handler::HandlerCodecs<__REQ, __RES> for $ty
-                            where __REQ: ::serde::Deserialize + ::serde::Serialize + Default,
-                                  __RES: ::serde::Serialize + ::serde::Deserialize {
-                            fn codecs(&self) -> Vec<Mime> {
-                                use ::decay::codec::Codec;
-                                vec![$($codecs_default().mime(),)*]
-                            }
-                            fn encode(&self, req: __RES, mime: &::decay::mime::Mime) -> Result<Vec<u8>, String> {
-                                Err("".into())
-                            }
-                            fn decode(&self, buf: &[u8], mime: &::decay::mime::Mime) -> Result<__REQ, String> {
-                                Err("".into())
-                            }
-                        }
-            ).unwrap();
-
+        let impl_item = quote_item! {
+            ecx,
+            impl$generics ::decay::handler::HandlerCodecs<__REQ, __RES> for $ty
+                where __REQ: ::serde::Deserialize + ::serde::Serialize + Default,
+            __RES: ::serde::Serialize + ::serde::Deserialize {
+                fn codecs(&self) -> Vec<Mime> {
+                    use ::decay::codec::Codec;
+                    vec![$($codecs_default().mime(),)*]
+                }
+                fn encode(&self, req: __RES, mime: &::decay::mime::Mime) -> Result<Vec<u8>, String> {
+                    Err("".into())
+                }
+                fn decode(&self, buf: &[u8], mime: &::decay::mime::Mime) -> Result<__REQ, String> {
+                    Err("".into())
+                }
+            }
+        }.unwrap();
+        
         println!("{}", syntax::print::pprust::item_to_string(&impl_item.clone().unwrap()));
         push(Annotatable::Item(impl_item));
     } else {

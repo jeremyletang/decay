@@ -19,6 +19,7 @@ use syntax::ext::base::MultiDecorator;
 
 mod codecs;
 mod handler_name;
+mod handler_for;
 mod handler_codecs;
 mod utils;
 
@@ -31,4 +32,7 @@ pub fn register(reg: &mut rustc_plugin::Registry) {
 
     reg.register_syntax_extension(syntax::parse::token::intern("handler_codecs"),
                                   MultiDecorator(Box::new(handler_codecs::expand_handler_codecs)));
+
+    reg.register_syntax_extension(syntax::parse::token::intern("handler_for"),
+                                  MultiDecorator(Box::new(handler_for::expand_handler_for)));
 }

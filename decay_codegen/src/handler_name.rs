@@ -55,15 +55,15 @@ pub fn expand_derive_handler_name(ecx: &mut ExtCtxt,
         let handler_name = str_to_lit(&*make_handler_name(ecx, &(*ty).node));
         let where_clauses = generics.where_clause.clone();
 
-        let impl_item =
-            quote_item!(ecx,
-                        impl$generics ::decay::handler::HandlerName for $ty $where_clauses {
-                            fn name(&self) -> &str {
-                                $handler_name
-                            }
-                        }
-            ).unwrap();
-
+        let impl_item = quote_item! {
+            ecx,
+            impl$generics ::decay::handler::HandlerName for $ty $where_clauses {
+                fn name(&self) -> &str {
+                    $handler_name
+                }
+            }
+        }.unwrap();
+        
         println!("{}", syntax::print::pprust::item_to_string(&impl_item.clone().unwrap()));
         push(Annotatable::Item(impl_item));
     } else {

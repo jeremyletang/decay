@@ -87,17 +87,6 @@ fn user_handler(ctx: &Context, _: UserRequest) -> UserResponse {
 #[handler_codecs(decay_json)]
 pub struct UserHandler(fn(&Context, UserRequest)-> UserResponse);
 
-impl Default for UserHandler {
-    fn default() -> UserHandler { UserHandler(user_handler) }
-}
-
-impl Handler<UserRequest, UserResponse> for UserHandler {
-    fn handle(&self, ctx: &Context, req: UserRequest) -> UserResponse {
-        println!("from UserHandler::handle {:?}", req);
-        (self.0)(ctx, req)
-    }
-}
-
 fn main() {
     let mut service = Service::new("yolo", "http://127.0.0.1:1492");
     service.use_codec(decay_json::Codec {})
