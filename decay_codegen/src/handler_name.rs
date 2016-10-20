@@ -20,9 +20,9 @@ fn str_to_lit(s: &str) -> P<Expr> {
 
 fn make_handler_name(cx: &mut ExtCtxt, ty_kind: &TyKind) -> String {
     let crate_name = cx.ecfg.crate_name.to_string() + ".";
-    let mod_path = cx.mod_path_stack
-        .iter()
-        .fold("".to_string(), |acc, seg| acc + seg + ".");
+    // let mod_path = cx.mod_path_stack
+    //    .iter()
+    //    .fold("".to_string(), |acc, seg| acc + seg + ".");
     let mut ty_name = match ty_kind {
         &TyKind::Path(_, ref p) => {
             p.segments.iter().fold("".to_string(), |acc, seg| {
@@ -32,7 +32,7 @@ fn make_handler_name(cx: &mut ExtCtxt, ty_kind: &TyKind) -> String {
         _ => unreachable!(),
     };
     ty_name.pop();
-    crate_name + &mod_path + &ty_name
+    crate_name + &ty_name
 }
 
 pub fn expand_derive_handler_name(ecx: &mut ExtCtxt,

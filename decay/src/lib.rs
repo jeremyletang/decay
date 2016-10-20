@@ -5,8 +5,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![feature(plugin, custom_derive)]
-#![plugin(serde_macros)]
+#![feature(plugin, proc_macro)]
+#![plugin(serde_derive)]
 #![allow(unused_variables)]
 
 #[macro_use]
@@ -14,6 +14,7 @@ extern crate log;
 extern crate mime as mime_crate;
 extern crate serde_json;
 #[macro_use]
+extern crate serde_derive;
 extern crate serde;
 
 pub mod mime {

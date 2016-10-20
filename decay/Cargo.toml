@@ -6,6 +6,6 @@ authors = ["jeremy <letang.jeremy@gmail.com>"]
 [dependencies]
 log = "0.3.6"
 mime = "0.2.1"
-serde = "^0.8"
-serde_macros = "^0.8"
-serde_json = "^0.8"
+serde = "0.8.12"
+serde_derive = "0.8.12"
+serde_json = "0.8.2"

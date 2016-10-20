@@ -6,6 +6,6 @@ license = "MIT/Apache-2.0"
 
 [dependencies]
 #git2 = "0.3"
-aster = "0.26.1"
-quasi = "^0.19.0"
-quasi_macros = { version = "^0.19.0", optional = false }
+aster = "0.30.0"
+quasi = "0.22.0"
+quasi_macros = { version = "0.22.0", optional = false }

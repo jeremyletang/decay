@@ -5,13 +5,15 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![feature(plugin, custom_derive, custom_attribute)]
-#![plugin(serde_macros, decay_macros)]
+#![feature(plugin, proc_macro, custom_attribute, custom_derive)]
+#![plugin(serde_derive, decay_macros)]
 #![allow(unused_variables)]
 
 extern crate decay;
 extern crate decay_json;
 extern crate serde;
+#[macro_use]
+extern crate serde_derive;
 
 use decay::context::Context;
 use decay::handler::Handler;
@@ -86,6 +88,7 @@ fn user_handler(ctx: &Context, _: UserRequest) -> UserResponse {
 #[handler_for(user_handler)]
 #[handler_codecs(decay_json)]
 pub struct UserHandler(fn(&Context, UserRequest)-> UserResponse);
+    
 
 fn main() {
     let mut service = Service::new("yolo", "http://127.0.0.1:1492");

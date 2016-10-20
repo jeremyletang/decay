@@ -7,5 +7,5 @@ authors = ["Jeremy Letang <letang.jeremy@gmail.com>"]
 decay = { version = "*", path = "../../decay" }
 decay_macros = { version = "*", path = "../../decay_macros" }
 decay_json = { version = "*", path = "../../codecs/json" }
-serde = "^0.8"
-serde_macros  = "^0.8"
+serde = "0.8.9"
+serde_derive  = "0.8.9"

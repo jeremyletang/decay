@@ -6,7 +6,7 @@ license = "MIT/Apache-2.0"
 description = "Json Codec for decay"
 
 [dependencies]
-serde = "^0.8"
-serde_json = "^0.8"
+serde = "0.8.9"
+serde_json = "0.8.2"
 decay = { version = "*", path = "../../decay" }
 log = "0.3.6"

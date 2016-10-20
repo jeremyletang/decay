@@ -49,8 +49,8 @@ pub fn expand_handler_codecs(ecx: &mut ExtCtxt,
         let ty = struct_ty(ecx, sp, item.ident, &generics);
 
         let mut params = generics.ty_params.into_vec();
-        params.push(ecx.typaram(sp, str_to_ident("__REQ"), P::new(), None));
-        params.push(ecx.typaram(sp, str_to_ident("__RES"), P::new(), None));
+        params.push(ecx.typaram(sp, str_to_ident("__REQ"), vec![], P::new(), None));
+        params.push(ecx.typaram(sp, str_to_ident("__RES"), vec![], P::new(), None));
         generics.ty_params = params.into();
 
         let impl_item = quote_item! {
